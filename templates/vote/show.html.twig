@@ -1,0 +1,92 @@
+
+
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Vote{% endblock %}
+{%  block body %}
+
+<script
+        src="http://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+    <h1>Vote</h1>
+<form method="GET" action="vote_show">
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-arrow-right"></span>{{ vote.question }} <a href="http://www.jquery2dotnet.com" target="_blank"><span
+                                    class="glyphicon glyphicon-new-window"></span></a>
+                    </h3>
+                    {% set twig = [] %}
+                    {% for answer in ans %}
+
+                        {% set twig = twig|merge([answer.Ans]) %}
+
+                        <br>
+                    {% endfor %}
+                </div>
+                <h3>{{ vote.option1 }}</h3>
+                <p id="option1"></p>
+                <h3>{{ vote.option2 }}</h3>
+                <p id="option2"></p>
+
+            </div>
+        </div>
+    </div>
+</div>
+    {#<a href method="POST" action="VoteController.php">Vote</a>#}
+
+{#<button onclick="castVote()" method="POST">Vote</button>#}
+</form>
+
+    <a href="{{ path('vote_index') }}">back to list</a>
+
+    <a href="{{ path('vote_edit', {'id': vote.id}) }}">edit</a>
+
+    {{ include('vote/_delete_form.html.twig') }}
+
+    {#<script>#}
+
+
+        {#function castVote(){#}
+
+            {#$.post( "/vote/castvote", { vote: 1, id: 5 })#}
+                {#.done(function( data ) {#}
+                    {#if($("input:radio[name=optionsRadios1]").is(":checked")){#}
+                       {#data = 1;#}
+                    {#}#}
+                    {#if($("input:radio[name=optionsRadios]").is(":checked")){#}
+                            {#data = 1;#}
+                    {#}#}
+                    {#//alert( "Data Loaded: " + data );#}
+                {#});#}
+        {#}#}
+    {#</script>#}
+
+
+<script>
+    var arr = {{ twig|json_encode|raw }};
+
+    function getOccurrence(array, value) {
+        var count = 0;
+        array.forEach((v) => (v === value && count++));
+        return count;
+    }
+
+    console.log(arr);
+    var ans1 = getOccurrence(arr, "1");  // 2
+    var ans2 = getOccurrence(arr, "2");  // 3
+    var total = ans1 + ans2;
+    var ans1per = ans1 / total * 100;
+    var ans2per = ans2 / total * 100;
+
+    document.getElementById("option1").innerHTML = ""+ans1per+"%";
+    document.getElementById("option2").innerHTML = ""+ans2per+"%";
+</script>
+
+
+{% endblock %}

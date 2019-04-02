@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Polling{% endblock %}
+
+{% block body %}
+    <h1>Create new Polling</h1>
+
+    {{ include('polling/_form.html.twig') }}
+
+    <a href="{{ path('polling_index') }}">back to list</a>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Polling{% endblock %}
+
+{% block body %}
+    <h1>Edit Polling</h1>
+
+
+
+    <a href="{{ path('polling_index') }}">back to list</a>
+
+    {{ include('polling/_delete_form.html.twig') }}
+{% endblock %}

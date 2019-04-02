@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Polling{% endblock %}
+
+{% block body %}
+    <h1>Polling</h1>
+
+    <table class="table">
+        <tbody>
+        {% for poll in result %}
+
+        <tr>
+            <td>{{ poll.id }}</td>
+            <td>{{ poll.VotingID }}</td>
+            <td>{{ poll.getAns }}</td>
+            <td>{{ poll.UserID}}</td>
+            {#{% for footballs in football %}#}
+
+            {#<td>{{ footballs.Ans}}</td>#}
+            {#{% endfor %}#}
+            <td>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('polling_index') }}">back to list</a>
+
+    <a href="{{ path('polling_edit', {'id': polling.id}) }}">edit</a>
+
+    {{ include('polling/_delete_form.html.twig') }}
+{% endblock %}

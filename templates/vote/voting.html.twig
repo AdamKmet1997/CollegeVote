@@ -1,0 +1,20 @@
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %}New Vote{% endblock %}
+{% block body %}
+
+    <h1>Voted</h1>
+    {#{%  echo $_GET["optionsRadios1"]; %}#}
+    {#{{ app.request.query.get("optionsRadios1") }}#}
+    {#{{ _get.optionsRadios1 }}#}
+
+{{ vote.question  }}<br>
+
+
+
+
+    <a href="{{ path('vote_index') }}">back to list</a>
+{% endblock %}
+

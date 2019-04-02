@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Polling index{% endblock %}
+
+{% block body %}
+    <h1>Polling index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Question</th>
+                <th>Support</th>
+                <th>Value</th>
+                <th> Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for polling in count %}
+            <tr>
+                <td>{{ polling.id }}</td>
+                <td>{{ polling.Question }}</td>
+                <td><button type="button" onclick="increase()" method="POST" value="support">Support Me</button></td>
+                <td><input type="text" id="text"></td>
+
+                {#{% for footballs in football %}#}
+
+                {#<td>{{ footballs.Ans}}</td>#}
+                {#{% endfor %}#}
+                {#<td>{{ count }}</td>#}
+                {#{% for polling in football %}#}
+
+                <td>
+                <a href="{{ path('vote_show', {'id': polling.id}) }}">show</a>
+                    <a href="{{ path('vote_edit', {'id': polling.id}) }}">edit</a>
+                    {{ include('polling/_delete_form.html.twig') }}
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+<script>
+    var a = 1;
+    function increase(){
+        document.getElementById("text").value=a;
+        a=a+1;
+    }
+    console.log(a)
+</script>
+
+    <a href="{{ path('polling_new') }}">Create new</a>
+{% endblock %}
