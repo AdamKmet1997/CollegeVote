@@ -2,29 +2,27 @@
 
 namespace App\Form;
 
+use App\Entity\Comment;
 use App\Entity\Vote;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class VoteType extends AbstractType
+class CommentType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('question')
-            ->add('option1')
-            ->add('option2')
-            ->add('datetime')
-
-
+            ->add('Comment')
+            ->add('UserID')
+            ->add('VoteID')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Vote::class,
+            'data_class' => Comment::class,
         ]);
     }
 }

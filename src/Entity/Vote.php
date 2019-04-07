@@ -37,17 +37,10 @@ class Vote
      */
     private $option2;
 
-
-
-
-
-
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Polling", mappedBy="Answer")
      */
     private $pollings;
-
-
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Polling", mappedBy="voting_id")
@@ -61,6 +54,33 @@ class Vote
      */
     private $Voting_id;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Polling", mappedBy="support", cascade={"persist", "remove"})
+     */
+    private $support;
+
+
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $datetime;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="CommentID")
+     */
+    private $CommentID;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="Comment")
+     */
+    private $Comment;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="VoteID")
+     */
+    private $VoteIDCo;
+
 
 
     public function __construct()
@@ -68,6 +88,9 @@ class Vote
         $this->pollings = new ArrayCollection();
         $this->voting_id = new ArrayCollection();
         $this->Voting_id = new ArrayCollection();
+        $this->CommentID = new ArrayCollection();
+        $this->Comment = new ArrayCollection();
+        $this->VoteIDCo = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -165,6 +188,131 @@ class Vote
             // set the owning side to null (unless already changed)
             if ($votingId->getVotingId() === $this) {
                 $votingId->setVotingId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getSupport(): ?Polling
+    {
+        return $this->support;
+    }
+
+    public function setSupport(?Polling $support): self
+    {
+        $this->support = $support;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newSupport = $support === null ? null : $this;
+        if ($newSupport !== $support->getSupport()) {
+            $support->setSupport($newSupport);
+        }
+
+        return $this;
+    }
+
+
+
+    public function getDatetime(): ?\DateTimeInterface
+    {
+        return $this->datetime;
+    }
+
+    public function setDatetime(\DateTimeInterface $datetime): self
+    {
+        $this->datetime = $datetime;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getCommentID(): Collection
+    {
+        return $this->CommentID;
+    }
+
+    public function addCommentID(Comment $commentID): self
+    {
+        if (!$this->CommentID->contains($commentID)) {
+            $this->CommentID[] = $commentID;
+            $commentID->setCommentID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentID(Comment $commentID): self
+    {
+        if ($this->CommentID->contains($commentID)) {
+            $this->CommentID->removeElement($commentID);
+            // set the owning side to null (unless already changed)
+            if ($commentID->getCommentID() === $this) {
+                $commentID->setCommentID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComment(): Collection
+    {
+        return $this->Comment;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->Comment->contains($comment)) {
+            $this->Comment[] = $comment;
+            $comment->setComment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->Comment->contains($comment)) {
+            $this->Comment->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getComment() === $this) {
+                $comment->setComment(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getVoteIDCo(): Collection
+    {
+        return $this->VoteIDCo;
+    }
+
+    public function addVoteIDCo(Comment $voteIDCo): self
+    {
+        if (!$this->VoteIDCo->contains($voteIDCo)) {
+            $this->VoteIDCo[] = $voteIDCo;
+            $voteIDCo->setVoteID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVoteIDCo(Comment $voteIDCo): self
+    {
+        if ($this->VoteIDCo->contains($voteIDCo)) {
+            $this->VoteIDCo->removeElement($voteIDCo);
+            // set the owning side to null (unless already changed)
+            if ($voteIDCo->getVoteID() === $this) {
+                $voteIDCo->setVoteID(null);
             }
         }
 

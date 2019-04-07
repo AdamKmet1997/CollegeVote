@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Comment;
 use App\Entity\Vote;
 use App\Entity\Polling;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -20,8 +21,6 @@ class VoteRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Vote::class);
     }
-
-
     public function findByCountFor($value)
     {
         return $this->createQueryBuilder('v')
@@ -29,7 +28,7 @@ class VoteRepository extends ServiceEntityRepository
             ->setParameter('val', $value)
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
     /**
      * @return Vote[] Returns an array of Polling objects
@@ -45,6 +44,35 @@ class VoteRepository extends ServiceEntityRepository
         ;
         return count($q);
     }
+    /**
+     * @return Vote[] Returns an array of Polling objects
+     */
+    public function showComment($value)
+    {
+        $q=$this->createQueryBuilder('v')
+            ->join(Comment::CLass,'c')
+            ->Select('c.Comment')
+            ->where('v.id  = c.VoteID')
+            ->andWhere('v.id = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+        return $q;
+    }
+    public function timer($value){
+        $q=$this->createQueryBuilder('v')
+            ->Select('v.datetime')
+            ->where('v.id = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+        return $q;
+    }
+
+
+
     /*
     public function findOneBySomeField($value): ?Vote
     {

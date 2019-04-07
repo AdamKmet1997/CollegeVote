@@ -55,11 +55,29 @@ class User implements UserInterface
      */
     private $User_id;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="UserID")
+     */
+    private $commentID;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="UserID")
+     */
+    private $UserID;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="UserID")
+     */
+    private $UserIdCo;
+
     public function __construct()
     {
         $this->Vote_ID = new ArrayCollection();
         $this->User_ID = new ArrayCollection();
         $this->User_id = new ArrayCollection();
+        $this->commentID = new ArrayCollection();
+        $this->UserID = new ArrayCollection();
+        $this->UserIdCo = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -157,6 +175,68 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($userId->getUserId() === $this) {
                 $userId->setUserId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getCommentID(): Collection
+    {
+        return $this->commentID;
+    }
+
+    public function addCommentID(Comment $commentID): self
+    {
+        if (!$this->commentID->contains($commentID)) {
+            $this->commentID[] = $commentID;
+            $commentID->setUserID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentID(Comment $commentID): self
+    {
+        if ($this->commentID->contains($commentID)) {
+            $this->commentID->removeElement($commentID);
+            // set the owning side to null (unless already changed)
+            if ($commentID->getUserID() === $this) {
+                $commentID->setUserID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getUserIdCo(): Collection
+    {
+        return $this->UserIdCo;
+    }
+
+    public function addUserIdCo(Comment $userIdCo): self
+    {
+        if (!$this->UserIdCo->contains($userIdCo)) {
+            $this->UserIdCo[] = $userIdCo;
+            $userIdCo->setUserID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserIdCo(Comment $userIdCo): self
+    {
+        if ($this->UserIdCo->contains($userIdCo)) {
+            $this->UserIdCo->removeElement($userIdCo);
+            // set the owning side to null (unless already changed)
+            if ($userIdCo->getUserID() === $this) {
+                $userIdCo->setUserID(null);
             }
         }
 

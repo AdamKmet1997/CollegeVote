@@ -39,6 +39,7 @@ class PollingRepository extends ServiceEntityRepository
         return $q;
     }
 
+
     /*    public function findOneBySomeField($value): ?Polling
     {
         return $this->createQueryBuilder('p')

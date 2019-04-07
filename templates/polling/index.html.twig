@@ -21,7 +21,8 @@
             <tr>
                 <td>{{ polling.id }}</td>
                 <td>{{ polling.Question }}</td>
-                <td><button type="button" onclick="increase()" method="POST" value="support">Support Me</button></td>
+                <td><a href="{{ path('polling_index', {'id': polling.id }) }}" value="support" name="support" method="POST">Support Me</a></td>
+{#                <td><button type="button" onclick="increase()" method="POST" value="support">Support Me</button></td>#}
                 <td><input type="text" id="text"></td>
 
                 {#{% for footballs in football %}#}

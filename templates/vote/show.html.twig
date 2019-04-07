@@ -34,8 +34,24 @@
                 <h3>{{ vote.option2 }}</h3>
                 <p id="option2"></p>
 
+{#                <span id="countdown" class="timer"></span>#}
+                {% set time = [] %}
+                {% for countdown in datetime %}
+{#                    {{ countdown.datetime|date('H:i:s') }}#}
+                    <span id="countdown"></span>                    <span id="countdown" class="timer"></span>
+<br>
+
+                {% endfor %}
+                {% for comment in comment %}
+                    {{ comment.Comment }}
+                {% endfor %}
+
+                {#             time is    <script>countdown();</script>#}
+
             </div>
         </div>
+{#        <iframe src="../comment/new.html.twig"></iframe>#}
+        {{ include('comment/_form.html.twig') }}
     </div>
 </div>
     {#<a href method="POST" action="VoteController.php">Vote</a>#}
@@ -43,30 +59,15 @@
 {#<button onclick="castVote()" method="POST">Vote</button>#}
 </form>
 
-    <a href="{{ path('vote_index') }}">back to list</a>
+    <a href="{{ path('vote_index') }}">|back to list|</a>
 
-    <a href="{{ path('vote_edit', {'id': vote.id}) }}">edit</a>
+    <a href="{{ path('vote_edit', {'id': vote.id}) }}">|edit|</a>
+
+
+    <td><a href="{{ path('polling_index', {'id': vote.id }) }}" value="support" method="POST">| Support Me|</a></td>
+
 
     {{ include('vote/_delete_form.html.twig') }}
-
-    {#<script>#}
-
-
-        {#function castVote(){#}
-
-            {#$.post( "/vote/castvote", { vote: 1, id: 5 })#}
-                {#.done(function( data ) {#}
-                    {#if($("input:radio[name=optionsRadios1]").is(":checked")){#}
-                       {#data = 1;#}
-                    {#}#}
-                    {#if($("input:radio[name=optionsRadios]").is(":checked")){#}
-                            {#data = 1;#}
-                    {#}#}
-                    {#//alert( "Data Loaded: " + data );#}
-                {#});#}
-        {#}#}
-    {#</script>#}
-
 
 <script>
     var arr = {{ twig|json_encode|raw }};
@@ -86,6 +87,47 @@
 
     document.getElementById("option1").innerHTML = ""+ans1per+"%";
     document.getElementById("option2").innerHTML = ""+ans2per+"%";
+
+
+    var current_level = {{ time|json_encode|raw}};
+
+    function timer() {
+
+        var days = Math.floor(current_level/86400);
+        var remainingDays = current_level - (days * 86400);
+
+        //if (days <= 0){
+        //    days = current_level;
+        //}
+
+        var hours = Math.floor(remainingDays/3600);
+        var remainingHours = remainingDays - (hours * 3600);
+
+        //if (hours >= 24){
+        //     hours = 23;
+        //}
+
+        var minutes = Math.floor(remainingHours/60);
+        var remainingMinutes = remainingHours - (minutes * 60);
+
+        //if (minutes >= 60) {
+        //     minutes = 59;
+        //}
+
+        var seconds = remainingMinutes;
+
+        document.getElementById('countdown').innerHTML = days + ":" + hours + ":" + minutes + ":" + seconds;
+
+        //if (seconds == 0) {
+        //    clearInterval(countdownTimer);
+        //     document.getElementById('countdown').innerHTML = "Completed";
+        //}
+
+        current_level--;
+    }
+    var countdownTimer = setInterval(timer, 1000);
+
+
 </script>
 
 

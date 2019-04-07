@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Polling;
+use App\Entity\Vote;
 use App\Entity\User;
 use App\Form\PollingType;
 use App\Repository\PollingRepository;
@@ -21,16 +22,13 @@ class PollingController extends AbstractController
     /**
      * @Route("/", name="polling_index", methods={"GET"})
      */
-    public function index(PollingRepository $pollingRepository , UserRepository $userRepository  ,VoteRepository $voteRepository): Response
+    public function index(Request $request,PollingRepository $pollingRepository , UserRepository $userRepository  ,VoteRepository $voteRepository): Response
     {
-
         return $this->render('polling/index.html.twig', [
             'pollings' => $voteRepository->findAll(),
             'user' => $userRepository->findAll(),
             'football'=>$pollingRepository->findByExampleField(6),
             'count'=> $voteRepository->findAll(),
-
-
 
         ]);
     }

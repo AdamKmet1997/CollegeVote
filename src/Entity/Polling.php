@@ -40,6 +40,11 @@ class Polling
      */
     private $Ans;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Vote", inversedBy="support", cascade={"persist", "remove"})
+     */
+    private $support;
+
 
     public function getId(): ?int
     {
@@ -79,6 +84,18 @@ class Polling
     public function setAns(string $Ans): self
     {
         $this->Ans = $Ans;
+
+        return $this;
+    }
+
+    public function getSupport(): ?Vote
+    {
+        return $this->support;
+    }
+
+    public function setSupport(?Vote $support): self
+    {
+        $this->support = $support;
 
         return $this;
     }

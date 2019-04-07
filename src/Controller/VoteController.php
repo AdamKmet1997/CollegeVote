@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Vote;
 use App\Entity\User;
+use App\Entity\Comment;
+use App\Form\CommentType;
 use App\Form\VoteType;
 use App\Repository\UserRepository;
 use App\Repository\PollingRepository;
@@ -13,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 
 /**
@@ -34,7 +37,7 @@ class VoteController extends AbstractController
     /**
      * @Route("/new", name="vote_new", methods={"GET","POST"})
      */
-    public function new(Request $request ): Response
+    public function new(Request $request , VoteRepository $voteRepository ): Response
     {
         $vote = new Vote();
         $form = $this->createForm(VoteType::class, $vote);
@@ -51,43 +54,61 @@ class VoteController extends AbstractController
         return $this->render('vote/new.html.twig', [
             'vote' => $vote,
             'form' => $form->createView(),
+            'datetime' => $voteRepository->timer($vote->getId())
         ]);
     }
 
-    /**
-     * @Route("/castvote/{id}", name="castvote", methods={"GET"})
-     */
-    public function castVote(Request $request, Vote $vote , VoteRepository $VoteRepository): Response
-    {
-        $value = $request->query->get('id');
-//        $for = (int) $request->query->get('count_for');
-        $for = $VoteRepository->findByCountFor($value);
-
-        //$against = (int) $request->query->get('count_against');
-
-        //  $vote = new Vote();
-        //$vote->setCountFor(++$test);
-        //$against->setCountAgainst($against);
-
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($vote);
-        $entityManager->flush();
-
-
-        return $this->render('vote/voting.html.twig', [
-            'vote' => $vote,
-        ]);
-
-    }
+//    /**
+//     * @Route("/castvote/{id}", name="castvote", methods={"GET"})
+//     */
+//    public function castVote(Request $request, Vote $vote ): Response
+//    {
+//        $value = $request->query->get('id');
+////        $for = (int) $request->query->get('count_for');
+//        $for = $VoteRepository->findByCountFor($value);
+//
+//        //$against = (int) $request->query->get('count_against');
+//
+//        //  $vote = new Vote();
+//        //$vote->setCountFor(++$test);
+//        //$against->setCountAgainst($against);
+//
+//        $entityManager = $this->getDoctrine()->getManager();
+//        $entityManager->persist($vote);
+//        $entityManager->flush();
+//
+//
+//        return $this->render('vote/voting.html.twig', [
+//            'vote' => $vote,
+//        ]);
+//
+//    }
 
     /**
      * @Route("/{id}", name="vote_show", methods={"GET"})
      */
-    public function show(Vote $vote , PollingRepository $pollingRepository): Response
+    public function show(Vote $vote ,Request $request, PollingRepository $pollingRepository, VoteRepository $VoteRepository): Response
     {
+
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('vote_show');
+        }
+
+
         return $this->render('vote/show.html.twig', [
             'vote' => $vote,
             'ans' => $pollingRepository->findByExampleField($vote),
+            'datetime' => $VoteRepository->timer($vote->getId()),
+            'comment' => $VoteRepository->showComment($vote->getId()),
+            'form' => $form->createView(),
         ]);
     }
 
