@@ -39,6 +39,16 @@ class PollingRepository extends ServiceEntityRepository
         return $q;
     }
 
+    function findQuestionById($value){
+        $q=$this->createQueryBuilder('p')
+            ->where('p.question  = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+        return $q;
+    }
+
 
     /*    public function findOneBySomeField($value): ?Polling
     {

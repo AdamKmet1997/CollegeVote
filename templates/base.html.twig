@@ -16,7 +16,7 @@
     <body>
     <nav class="navbar navbar-expand-lg navbar-dark navbar-bg mb-5">
         <img src="/images/TUD.png" alt="TUD logo" width="75" height="80">
-        <a style="margin-left: 75px;" class="navbar-brand space-brand" href="#">
+        <a style="margin-left: 75px;" class="navbar-brand space-brand" href="{{ url('homepage') }}">
             Student Union Voting
         </a>
 
@@ -27,7 +27,7 @@
                 <a href="{{ url('admin') }}">Admin home</a>
             </li>
             <li>
-                <a href="{{ url('vote_index') }}">Current Voting</a>
+                <a href="{{ url('polling_new') }}">Current Voting</a>
             </li>
             {% endif %}
             </li>

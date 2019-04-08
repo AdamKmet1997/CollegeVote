@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Polling;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -17,6 +18,16 @@ class UserRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, User::class);
+    }
+
+    function findUserById($value){
+        $q=$this->createQueryBuilder('u')
+            ->where('u.username = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+        return $q;
     }
 
     // /**

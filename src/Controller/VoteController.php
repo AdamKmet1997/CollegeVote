@@ -107,7 +107,7 @@ class VoteController extends AbstractController
             'vote' => $vote,
             'ans' => $pollingRepository->findByExampleField($vote),
             'datetime' => $VoteRepository->timer($vote->getId()),
-            'comment' => $VoteRepository->showComment($vote->getId()),
+            'comment' => $comment,
             'form' => $form->createView(),
         ]);
     }

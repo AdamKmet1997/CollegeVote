@@ -12,8 +12,8 @@ class PollingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('User_id')
-            ->add('Voting_id')
+
+//            ->add('Voting_id')
         ;
     }
 

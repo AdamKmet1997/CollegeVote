@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Polling;
+use Symfony\Component\Security\Core\User\UserInterface;
 use App\Entity\Vote;
 use App\Entity\User;
+use App\Entity\Comment;
+use App\Repository\CommentRepository;
 use App\Form\PollingType;
 use App\Repository\PollingRepository;
 use Doctrine\ORM\EntityManager;
@@ -36,15 +39,24 @@ class PollingController extends AbstractController
     /**
      * @Route("/new", name="polling_new", methods={"GET","POST"})
      */
-    public function new(Request $request , VoteRepository $voteRepository): Response
+    public function new(Request $request ,UserInterface $user , VoteRepository $voteRepository, UserRepository $userRepository): Response
     {
         $polling = new Polling();
         $form = $this->createForm(PollingType::class, $polling);
         $form->handleRequest($request);
 
+        $em = $this->getDoctrine()->getManager();
         if ($form->isSubmitted() && $form->isValid()) {
             $decision = $_POST['answer'];
+            $choice = $_POST['question'];
+//            $user = $_POST['username'];
+            var_dump($user->getUsername());
             $polling->setAns($decision);
+//            $users =  $userRepository -> findUserById($user);
+            $polling->setUserId($user);
+            $voting = $em->getRepository('App:Vote')->find($choice);
+            $polling->setVotingId($voting);
+//            $polling->setUserId($users);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($polling);
             $entityManager->flush();

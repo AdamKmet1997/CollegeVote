@@ -29,18 +29,35 @@
 
                     </a>
                 </li>
-                <li>
-                <li class="nav-item"><a href="{{ path('app_login') }}">Login</a></li>
-                {% if is_granted('ROLE_ADMIN') %}
-                    <li>
-                        <a href="{{ url('admin') }}">Admin home</a>
-                    </li>
+                {% if app.user %}
                     <li>
                         <a href="{{ url('vote_index') }}">Current Voting</a>
                     </li>
                     <li>
                         <a href="{{ url('polling_new') }}">Make a Vote</a>
                     </li>
+                    <li>
+                    <li class="nav-item"><a href="{{ path('app_logout') }}">Logout</a></li>
+                    </li>
+                {% endif %}
+
+                {% if not app.user %}
+                <li class="nav-item"><a href="{{ path('app_login') }}">Login</a></li>
+                {% endif %}
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li>
+                        <a href="{{ url('admin') }}">Admin home</a>
+                    </li>
+{#                    <li>#}
+{#                        <a href="{{ url('vote_index') }}">Current Voting</a>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                        <a href="{{ url('polling_new') }}">Make a Vote</a>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                         <li class="nav-item"><a href="{{ path('app_logout') }}">Logout</a></li>#}
+{#                    </li>#}
                 {% endif %}
                 {% block javascripts %}{% endblock %}
 
@@ -50,8 +67,9 @@
         </div>
     </nav>
 
-
-<h1>Home page</h1>
+    {% if app.user %}
+        <h1>Welcome {{ app.user.username }}</h1>
+    {% endif %}
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
