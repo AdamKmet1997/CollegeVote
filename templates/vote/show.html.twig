@@ -29,12 +29,13 @@
                         <br>
                     {% endfor %}
                 </div>
-                <h3>{{ vote.option1 }}</h3>
+
+                <input type="radio"  value="{{ vote.option1 }}"> {{ vote.option1 }}<br>
                 <p id="option1"></p>
-                <h3>{{ vote.option2 }}</h3>
+                <input type="radio"  value="{{ vote.option2}}"> {{ vote.option2 }}<br>
                 <p id="option2"></p>
 
-{#                <span id="countdown" class="timer"></span>#}
+                <span id="countdown" class="timer"></span>
                 {% set time = [] %}
                 {% for countdown in datetime %}
                     {{ countdown.datetime|date('d-m-Y H:i:s') }}
@@ -46,15 +47,15 @@
                     {{ comment.Comment }}
                 {% endfor %}
 
-                {#             time is    <script>countdown();</script>#}
+                             time is    <script>countdown();</script>
 
             </div>
         </div>
-{#        <iframe src="../comment/new.html.twig"></iframe>#}
-        {{ include('comment/_form.html.twig') }}
+{#        {{ include('polling/_form.html.twig') }}#}
+
     </div>
 </div>
-    {#<a href method="POST" action="VoteController.php">Vote</a>#}
+{#    <a href method="POST" action="VoteController.php">Vote</a>#}
 
 {#<button onclick="castVote()" method="POST">Vote</button>#}
 </form>
@@ -62,6 +63,8 @@
     <a href="{{ path('vote_index') }}">|back to list|</a>
 
     <a href="{{ path('vote_edit', {'id': vote.id}) }}">|edit|</a>
+    <a href="{{ path('comment_new', {'id': vote.id}) }}">|Comment|</a>
+
 
 
     <td><a href="{{ path('polling_index', {'id': vote.id }) }}" value="support" method="POST">| Support Me|</a></td>
@@ -92,26 +95,26 @@
     {#var current_level =#}
     {#        {{ countdown.datetime|date('d-m-Y H:i:s')|json_encode|raw }};#}
 
-    {#function timer() {#}
+    {#function timer() #}
 
     {#    var days = Math.floor(current_level/86400);#}
     {#    var remainingDays = current_level - (days * 86400);#}
 
-    {#    //if (days <= 0){#}
+    {#    //if (days <= 0)}#}
     {#    //    days = current_level;#}
     {#    //}#}
 
     {#    var hours = Math.floor(remainingDays/3600);#}
     {#    var remainingHours = remainingDays - (hours * 3600);#}
 
-    {#    //if (hours >= 24){#}
+    {#    //if (hours >= 24)}#}
     {#    //     hours = 23;#}
     {#    //}#}
 
     {#    var minutes = Math.floor(remainingHours/60);#}
     {#    var remainingMinutes = remainingHours - (minutes * 60);#}
 
-    {#    //if (minutes >= 60) {#}
+    {#    //if (minutes >= 60) }#}
     {#    //     minutes = 59;#}
     {#    //}#}
 
@@ -119,7 +122,7 @@
 
     {#    document.getElementById('countdown').innerHTML = days + ":" + hours + ":" + minutes + ":" + seconds;#}
 
-    {#    //if (seconds == 0) {#}
+    {#    //if (seconds == 0) }#}
     {#    //    clearInterval(countdownTimer);#}
     {#    //     document.getElementById('countdown').innerHTML = "Completed";#}
     {#    //}#}

@@ -74,14 +74,33 @@ class PollingController extends AbstractController
     /**
      * @Route("/{id}", name="polling_show", methods={"GET"})
      */
-    public function show(Request $request, Polling $polling, PollingRepository $pollingRepository, UserRepository $userRepository ): Response
+    public function show(Request $request,UserInterface $user ,Polling $polling, PollingRepository $pollingRepository, UserRepository $userRepository ): Response
     {
-//       $value= $polling->getId();
 
+//        $form = $this->createForm(PollingType::class, $polling);
+//        $form->handleRequest($request);
+//
+//        $em = $this->getDoctrine()->getManager();
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $decision = $_POST['answer'];
+//            $choice = $_POST['question'];
+////            $user = $_POST['username'];
+//            $polling->setAns($decision);
+////            $users =  $userRepository -> findUserById($user);
+//            $polling->setUserId($user);
+//            $voting = $em->getRepository('App:Vote')->find($choice);
+//            $polling->setVotingId($voting);
+////            $polling->setUserId($users);
+//            $entityManager = $this->getDoctrine()->getManager();
+//            $entityManager->persist($polling);
+//            $entityManager->flush();
+////       $value= $polling->getId();
+//        }
         return $this->render('polling/show.html.twig', [
             'polling' => $polling,
             'pollings' => $pollingRepository->findAll(),
             'user' => $userRepository->findAll(),
+//            'form' => $form->createView(),
 
         ]);
     }

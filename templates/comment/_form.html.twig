@@ -1,4 +1,15 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+{#    {{ form_widget(form) }}#}
+{{ form_row(form.Comment) }}
+
     <button class="btn">{{ button_label|default('Save') }}</button>
+<hr>
+<hr>
+
+<input type="hidden" name="comment[UserID]" value="{{ app.user.id }}">
+<input type="hidden" name="comment[VoteID]" value="{{ vote.id }}">
+<!--
+{{ form_row(form.UserID) }}
+{{ form_row(form.VoteID) }}
+-->
 {{ form_end(form) }}

@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Polling;
 use App\Entity\Vote;
 use App\Entity\User;
 use App\Entity\Comment;
 use App\Form\CommentType;
+use App\Form\PollingType;
 use App\Form\VoteType;
 use App\Repository\UserRepository;
 use App\Repository\PollingRepository;
@@ -15,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Security\Core\User\UserInterface;
 
 
 /**
@@ -58,57 +60,42 @@ class VoteController extends AbstractController
         ]);
     }
 
-//    /**
-//     * @Route("/castvote/{id}", name="castvote", methods={"GET"})
-//     */
-//    public function castVote(Request $request, Vote $vote ): Response
-//    {
-//        $value = $request->query->get('id');
-////        $for = (int) $request->query->get('count_for');
-//        $for = $VoteRepository->findByCountFor($value);
-//
-//        //$against = (int) $request->query->get('count_against');
-//
-//        //  $vote = new Vote();
-//        //$vote->setCountFor(++$test);
-//        //$against->setCountAgainst($against);
-//
-//        $entityManager = $this->getDoctrine()->getManager();
-//        $entityManager->persist($vote);
-//        $entityManager->flush();
-//
-//
-//        return $this->render('vote/voting.html.twig', [
-//            'vote' => $vote,
-//        ]);
-//
-//    }
+
 
     /**
      * @Route("/{id}", name="vote_show", methods={"GET"})
      */
-    public function show(Vote $vote ,Request $request, PollingRepository $pollingRepository, VoteRepository $VoteRepository): Response
+    public function show(Vote $vote ,Request $request,UserInterface $user, PollingRepository $pollingRepository, VoteRepository $VoteRepository): Response
     {
 
-        $comment = new Comment();
-        $form = $this->createForm(CommentType::class, $comment);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($comment);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('vote_show');
-        }
-
+//        $polling = new Polling();
+//        $form = $this->createForm(PollingType::class, $polling);
+//        $form->handleRequest($request);
+//
+//        $em = $this->getDoctrine()->getManager();
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $decision = $_POST['answer'];
+//            $choice = $_POST['question'];
+////            $user = $_POST['username'];
+//            var_dump($user->getUsername());
+//            $polling->setAns($decision);
+////            $users =  $userRepository -> findUserById($user);
+//            $polling->setUserId($user);
+//            $voting = $em->getRepository('App:Vote')->find($choice);
+//            $polling->setVotingId($voting);
+////            $polling->setUserId($users);
+//            $entityManager = $this->getDoctrine()->getManager();
+//            $entityManager->persist($polling);
+//            $entityManager->flush();
+//
+//            return $this->redirectToRoute('polling_index');
+//        }
 
         return $this->render('vote/show.html.twig', [
             'vote' => $vote,
             'ans' => $pollingRepository->findByExampleField($vote),
             'datetime' => $VoteRepository->timer($vote->getId()),
             'comment' => $VoteRepository->showComment($vote->getId()),
-            'form' => $form->createView(),
         ]);
     }
 

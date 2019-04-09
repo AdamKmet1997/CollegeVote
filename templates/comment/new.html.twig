@@ -3,9 +3,11 @@
 {% block title %}New Comment{% endblock %}
 
 {% block body %}
-    <h1>Create new Comment</h1>
+    <h1>Create new Comment: for vote {{ vote.question }}</h1>
 
     {{ include('comment/_form.html.twig') }}
+    <input type="hidden"  name="username" value="{{ app.user.username }}">
 
-{#    <a href="{{ path('comment_index') }}">back to list</a>#}
-{#{% endblock %}#}
+
+    <a href="{{ path('comment_index') }}">back to list</a>
+{% endblock %}
