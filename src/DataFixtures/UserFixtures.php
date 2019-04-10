@@ -25,6 +25,7 @@ class UserFixtures extends Fixture
     {
         // create objects
         $userUser = $this->createUser('user', 'user',['ROLE_USER']);
+
         $userAdmin = $this->createUser('admin', 'admin', ['ROLE_ADMIN']);
         $userMatt = $this->createUser('adam', 'kmet', ['ROLE_SUPER_ADMIN']);
 // store to DB

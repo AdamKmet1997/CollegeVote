@@ -88,15 +88,9 @@ class VoteController extends AbstractController
      */
     public function show(Vote $vote, $id,Request $request,VoteRepository $voteRepository, PollingRepository $pollingRepository, VoteRepository $VoteRepository): Response
     {
-
-        $polling = new Polling();
-        $form = $this->createForm(PollingType::class, $polling);
-        $form->handleRequest($request);
-
-
         return $this->render('vote/show.html.twig', [
             'vote' => $vote,
-            'form' => $form->createView(),
+//            'form' => $form->createView(),
             'ans' => $pollingRepository->findByExampleField($vote),
             'datetime' => $VoteRepository->timer($vote->getId()),
             'comment' => $VoteRepository->showComment($vote->getId()),
@@ -104,7 +98,37 @@ class VoteController extends AbstractController
 
         ]);
     }
+    /**
+     * @Route("/{id}/like   ", name="like_show")
+     */
+    public function likeVote(Request $request, VoteRepository $voteRepository, $id, PollingRepository $pollingRepository,Vote $vote){
 
+
+        $form = $this->createForm(VoteType::class);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $voteRepository = $this->getDoctrine()->getRepository('App:Vote');
+
+        $like = $voteRepository->find($id);
+
+        $like->setLikes($like->getLikes() + 1);
+
+        $entityManager->persist($like);
+        $entityManager->flush();
+
+
+
+        return $this->render('vote/show.html.twig', [
+            'vote' => $vote,
+//            'form' => $form->createView(),
+            'ans' => $pollingRepository->findByExampleField($vote),
+            'datetime' => $voteRepository->timer($vote->getId()),
+            'comment' => $voteRepository->showComment($vote->getId()),
+//            'likes' => $VoteRepository->supportCounter($vote->getId()),
+
+        ]);
+
+    }
 
     /**
      * @Route("/{id}/edit", name="vote_edit", methods={"GET","POST"})

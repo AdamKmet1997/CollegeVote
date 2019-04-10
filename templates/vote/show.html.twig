@@ -16,8 +16,7 @@
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title">
-                                <span class="glyphicon glyphicon-arrow-right"></span>{{ vote.question }} <a href="http://www.jquery2dotnet.com" target="_blank"><span
-                                            class="glyphicon glyphicon-new-window"></span></a>
+                               {{ vote.question }}
                             </h3>
                             {% set twig = [] %}
                             {% for answer in ans %}
@@ -40,11 +39,12 @@
                             <span id="countdown"></span>                    <span id="countdown" class="timer"></span>
                             <br>
 
-                            {% if "now"|date('H:i:s \O\n d/m/Y') > countdown.datetime|date('H:i:s \O\n d/m/Y') %}
+                            {% if "now"|date('H:i:s \O\n d/m/Y') < countdown.datetime|date('H:i:s \O\n d/m/Y') %}
                                 <p>expired</p>
                             {% endif %}
 
                         {% endfor %}
+
 
                         {% for comment in comment %}
                             {{ comment.Comment }}
@@ -58,16 +58,20 @@
                 </div>
             <p> current support is: {{ vote.likes }}</p>
 
-{#                <input type="submit" id="like" name="like" value="like">#}
 
-                {#        {{ include('polling/_form.html.twig') }}#}
+                <form action="vote_show">
+
+                    <a href="{{ url('like_show', {'id': vote.id}) }}">like</a>
+
+                </form>
+
+
+
 
             </div>
         </div>
-        {#    <a href method="POST" action="VoteController.php">Vote</a>#}
 </div>
         </div>
-        {#<button onclick="castVote()" method="POST">Vote</button>#}
     </form>
 
     <a href="{{ path('vote_index') }}">|back to list|</a>
@@ -79,7 +83,7 @@
 
 
 
-    <td><a href="{{ path('polling_index', {'id': vote.id }) }}" value="support" method="POST">| Support Me|</a></td>
+    <td><a href="{{ path('polling_index', {'id': vote.id }) }}" value="support" name="support" method="POST">| Support Me|</a></td>
 
 
     {{ include('vote/_delete_form.html.twig') }}
