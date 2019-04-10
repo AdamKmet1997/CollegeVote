@@ -54,10 +54,6 @@ class Vote
      */
     private $Voting_id;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Polling", mappedBy="support", cascade={"persist", "remove"})
-     */
-    private $support;
 
 
 
@@ -80,6 +76,13 @@ class Vote
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="VoteID")
      */
     private $VoteIDCo;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $likes;
+
+
 
 
 
@@ -194,23 +197,6 @@ class Vote
         return $this;
     }
 
-    public function getSupport(): ?Polling
-    {
-        return $this->support;
-    }
-
-    public function setSupport(?Polling $support): self
-    {
-        $this->support = $support;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newSupport = $support === null ? null : $this;
-        if ($newSupport !== $support->getSupport()) {
-            $support->setSupport($newSupport);
-        }
-
-        return $this;
-    }
 
 
 
@@ -318,6 +304,20 @@ class Vote
 
         return $this;
     }
+
+    public function getLikes(): ?int
+    {
+        return $this->likes;
+    }
+
+    public function setLikes(?int $likes): self
+    {
+        $this->likes = $likes;
+
+        return $this;
+    }
+
+
 
 
 }

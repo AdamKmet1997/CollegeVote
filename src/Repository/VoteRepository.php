@@ -71,7 +71,20 @@ class VoteRepository extends ServiceEntityRepository
         return $q;
     }
 
+public function supportCounter($value){
+        $q = $this->createQueryBuilder('v')
+            ->Select('v.likes')
+            ->Where('v.id = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    foreach($q as $key => $value)
+     echo $key;
+    return $q;
 
+
+}
 
     /*
     public function findOneBySomeField($value): ?Vote

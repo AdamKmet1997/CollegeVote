@@ -70,6 +70,8 @@ class User implements UserInterface
      */
     private $UserIdCo;
 
+
+
     public function __construct()
     {
         $this->Vote_ID = new ArrayCollection();
@@ -242,6 +244,8 @@ class User implements UserInterface
 
         return $this;
     }
+
+
 
 
 

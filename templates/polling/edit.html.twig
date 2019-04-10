@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Edit Polling</h1>
 
-
+    {{ include('polling/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('polling_index') }}">back to list</a>
 

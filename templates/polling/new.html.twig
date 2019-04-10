@@ -3,9 +3,9 @@
 {% block title %}New Polling{% endblock %}
 
 {% block body %}
-    <h1>Create new Polling</h1>
+    <h1>Create new Polling for {{ vote.question }}</h1>
 
     {{ include('polling/_form.html.twig') }}
 
-    <a href="{{ path('polling_index') }}">back to list</a>
+{#    <a href="{{ path('polling_index') }}">back to list</a>#}
 {% endblock %}

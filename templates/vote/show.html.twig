@@ -1,69 +1,70 @@
-
-
 {% extends 'base.html.twig' %}
 
 
 {% block title %}Vote{% endblock %}
 {%  block body %}
 
-<script
-        src="http://code.jquery.com/jquery-3.3.1.js"
-        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-        crossorigin="anonymous"></script>
+    <script
+            src="http://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
     <h1>Vote</h1>
-<form method="GET" action="vote_show">
-<div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        <span class="glyphicon glyphicon-arrow-right"></span>{{ vote.question }} <a href="http://www.jquery2dotnet.com" target="_blank"><span
-                                    class="glyphicon glyphicon-new-window"></span></a>
-                    </h3>
-                    {% set twig = [] %}
-                    {% for answer in ans %}
+    <form method="GET" action="vote_show">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <span class="glyphicon glyphicon-arrow-right"></span>{{ vote.question }} <a href="http://www.jquery2dotnet.com" target="_blank"><span
+                                            class="glyphicon glyphicon-new-window"></span></a>
+                            </h3>
+                            {% set twig = [] %}
+                            {% for answer in ans %}
 
-                        {% set twig = twig|merge([answer.Ans]) %}
+                                {% set twig = twig|merge([answer.Ans]) %}
 
-                        <br>
-                    {% endfor %}
+                                <br>
+                            {% endfor %}
+                        </div>
+
+                        <input type="radio"  value="{{ vote.option1 }}"> {{ vote.option1 }}<br>
+                        <p id="option1"></p>
+                        <input type="radio"  value="{{ vote.option2}}"> {{ vote.option2 }}<br>
+                        <p id="option2"></p>
+
+                        <span id="countdown" class="timer"></span>
+                        {% set time = [] %}
+                        {% for countdown in datetime %}
+                            {{ countdown.datetime|date('d-m-Y H:i:s') }}
+                            <span id="countdown"></span>                    <span id="countdown" class="timer"></span>
+                            <br>
+
+                        {% endfor %}
+                        {% for comment in comment %}
+                            {{ comment.Comment }}
+                        {% endfor %}
+
+                        time is    <script>countdown();</script>
+
+                    </div>
                 </div>
-
-                <input type="radio"  value="{{ vote.option1 }}"> {{ vote.option1 }}<br>
-                <p id="option1"></p>
-                <input type="radio"  value="{{ vote.option2}}"> {{ vote.option2 }}<br>
-                <p id="option2"></p>
-
-                <span id="countdown" class="timer"></span>
-                {% set time = [] %}
-                {% for countdown in datetime %}
-                    {{ countdown.datetime|date('d-m-Y H:i:s') }}
-                    <span id="countdown"></span>                    <span id="countdown" class="timer"></span>
-<br>
-
-                {% endfor %}
-                {% for comment in comment %}
-                    {{ comment.Comment }}
-                {% endfor %}
-
-                             time is    <script>countdown();</script>
+            <p> current support is: {{ vote.likes }}</p>
+                {#        {{ include('polling/_form.html.twig') }}#}
 
             </div>
         </div>
-{#        {{ include('polling/_form.html.twig') }}#}
+        {#    <a href method="POST" action="VoteController.php">Vote</a>#}
 
-    </div>
-</div>
-{#    <a href method="POST" action="VoteController.php">Vote</a>#}
-
-{#<button onclick="castVote()" method="POST">Vote</button>#}
-</form>
+        {#<button onclick="castVote()" method="POST">Vote</button>#}
+    </form>
 
     <a href="{{ path('vote_index') }}">|back to list|</a>
 
     <a href="{{ path('vote_edit', {'id': vote.id}) }}">|edit|</a>
     <a href="{{ path('comment_new', {'id': vote.id}) }}">|Comment|</a>
+    <a href="{{ path('polling_new', {'id': vote.id}) }}">|Polling|</a>
+
 
 
 
@@ -72,67 +73,49 @@
 
     {{ include('vote/_delete_form.html.twig') }}
 
-<script>
-    var arr = {{ twig|json_encode|raw }};
-
-    function getOccurrence(array, value) {
-        var count = 0;
-        array.forEach((v) => (v === value && count++));
-        return count;
-    }
-
-    console.log(arr);
-    var ans1 = getOccurrence(arr, "1");  // 2
-    var ans2 = getOccurrence(arr, "2");  // 3
-    var total = ans1 + ans2;
-    var ans1per = ans1 / total * 100;
-    var ans2per = ans2 / total * 100;
-
-    document.getElementById("option1").innerHTML = ""+ans1per+"%";
-    document.getElementById("option2").innerHTML = ""+ans2per+"%";
-
-
-    {#var current_level =#}
-    {#        {{ countdown.datetime|date('d-m-Y H:i:s')|json_encode|raw }};#}
-
-    {#function timer() #}
-
-    {#    var days = Math.floor(current_level/86400);#}
-    {#    var remainingDays = current_level - (days * 86400);#}
-
-    {#    //if (days <= 0)}#}
-    {#    //    days = current_level;#}
-    {#    //}#}
-
-    {#    var hours = Math.floor(remainingDays/3600);#}
-    {#    var remainingHours = remainingDays - (hours * 3600);#}
-
-    {#    //if (hours >= 24)}#}
-    {#    //     hours = 23;#}
-    {#    //}#}
-
-    {#    var minutes = Math.floor(remainingHours/60);#}
-    {#    var remainingMinutes = remainingHours - (minutes * 60);#}
-
-    {#    //if (minutes >= 60) }#}
-    {#    //     minutes = 59;#}
-    {#    //}#}
-
-    {#    var seconds = remainingMinutes;#}
-
-    {#    document.getElementById('countdown').innerHTML = days + ":" + hours + ":" + minutes + ":" + seconds;#}
-
-    {#    //if (seconds == 0) }#}
-    {#    //    clearInterval(countdownTimer);#}
-    {#    //     document.getElementById('countdown').innerHTML = "Completed";#}
-    {#    //}#}
-
-    {#    current_level--;#}
-    {#}#}
-    {#var countdownTimer = setInterval(timer, 1000);#}
-
-
-</script>
+    <script>
+        var arr = {{ twig|json_encode|raw }};
+        function getOccurrence(array, value) {
+            var count = 0;
+            array.forEach((v) => (v === value && count++));
+            return count;
+        }
+        console.log(arr);
+        var ans1 = getOccurrence(arr, "1");  // 2
+        var ans2 = getOccurrence(arr, "2");  // 3
+        var total = ans1 + ans2;
+        var ans1per = ans1 / total * 100;
+        var ans2per = ans2 / total * 100;
+        document.getElementById("option1").innerHTML = ""+ans1per+"%";
+        document.getElementById("option2").innerHTML = ""+ans2per+"%";
+        {#var current_level =#}
+        {#        {{ countdown.datetime|date('d-m-Y H:i:s')|json_encode|raw }};#}
+        {#function timer() #}
+        {#    var days = Math.floor(current_level/86400);#}
+        {#    var remainingDays = current_level - (days * 86400);#}
+        {#    //if (days <= 0)}#}
+        {#    //    days = current_level;#}
+        {#    //}#}
+        {#    var hours = Math.floor(remainingDays/3600);#}
+        {#    var remainingHours = remainingDays - (hours * 3600);#}
+        {#    //if (hours >= 24)}#}
+        {#    //     hours = 23;#}
+        {#    //}#}
+        {#    var minutes = Math.floor(remainingHours/60);#}
+        {#    var remainingMinutes = remainingHours - (minutes * 60);#}
+        {#    //if (minutes >= 60) }#}
+        {#    //     minutes = 59;#}
+        {#    //}#}
+        {#    var seconds = remainingMinutes;#}
+        {#    document.getElementById('countdown').innerHTML = days + ":" + hours + ":" + minutes + ":" + seconds;#}
+        {#    //if (seconds == 0) }#}
+        {#    //    clearInterval(countdownTimer);#}
+        {#    //     document.getElementById('countdown').innerHTML = "Completed";#}
+        {#    //}#}
+        {#    current_level--;#}
+        {#}#}
+        {#var countdownTimer = setInterval(timer, 1000);#}
+    </script>
 
 
 {% endblock %}

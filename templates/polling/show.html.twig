@@ -7,21 +7,14 @@
 
     <table class="table">
         <tbody>
-        {% for poll in result %}
-
-        <tr>
-            <td>{{ poll.id }}</td>
-            <td>{{ poll.VotingID }}</td>
-            <td>{{ poll.getAns }}</td>
-            <td>{{ poll.UserID}}</td>
-            {#{% for footballs in football %}#}
-
-            {#<td>{{ footballs.Ans}}</td>#}
-            {#{% endfor %}#}
-            <td>
-            </td>
-        </tr>
-        {% endfor %}
+            <tr>
+                <th>Id</th>
+                <td>{{ polling.id }}</td>
+            </tr>
+            <tr>
+                <th>Ans</th>
+                <td>{{ polling.Ans }}</td>
+            </tr>
         </tbody>
     </table>
 

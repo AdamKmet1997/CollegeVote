@@ -3,21 +3,26 @@
 namespace App\Controller;
 
 use App\Entity\Polling;
+//use App\Entity\Support;
+//use App\Repository\SupportRepository;
+use Doctrine\ORM\Mapping\Id;
+use Symfony\Component\Security\Core\User\UserInterface;
 use App\Entity\Vote;
 use App\Entity\User;
 use App\Entity\Comment;
-use App\Form\CommentType;
+use App\Repository\CommentRepository;
 use App\Form\PollingType;
-use App\Form\VoteType;
-use App\Repository\UserRepository;
 use App\Repository\PollingRepository;
-use App\Repository\VoteRepository;
-use Doctrine\ORM\Query;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
+use App\Repository\VoteRepository;
+use App\Repository\UserRepository;
+use App\Form\CommentType;
+use App\Form\VoteType;
+use Doctrine\ORM\Query;
 
 
 /**
@@ -56,48 +61,44 @@ class VoteController extends AbstractController
         return $this->render('vote/new.html.twig', [
             'vote' => $vote,
             'form' => $form->createView(),
-            'datetime' => $voteRepository->timer($vote->getId())
+            'datetime' => $voteRepository->timer($vote->getId()),
+//            'support' => $voteRepository->supportCounter($vote->getId())
         ]);
     }
 
 
 
     /**
-     * @Route("/{id}", name="vote_show", methods={"GET"})
+     * @Route("/{id}", name="vote_show")
      */
-    public function show(Vote $vote ,Request $request,UserInterface $user, PollingRepository $pollingRepository, VoteRepository $VoteRepository): Response
+    public function show(Vote $vote, $id,Request $request,VoteRepository $voteRepository, PollingRepository $pollingRepository, VoteRepository $VoteRepository): Response
     {
 
-//        $polling = new Polling();
-//        $form = $this->createForm(PollingType::class, $polling);
-//        $form->handleRequest($request);
-//
-//        $em = $this->getDoctrine()->getManager();
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $decision = $_POST['answer'];
-//            $choice = $_POST['question'];
-////            $user = $_POST['username'];
-//            var_dump($user->getUsername());
-//            $polling->setAns($decision);
-////            $users =  $userRepository -> findUserById($user);
-//            $polling->setUserId($user);
-//            $voting = $em->getRepository('App:Vote')->find($choice);
-//            $polling->setVotingId($voting);
-////            $polling->setUserId($users);
-//            $entityManager = $this->getDoctrine()->getManager();
-//            $entityManager->persist($polling);
-//            $entityManager->flush();
-//
-//            return $this->redirectToRoute('polling_index');
-//        }
+        $polling = new Polling();
+        $form = $this->createForm(PollingType::class, $polling);
+        $form->handleRequest($request);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $voteRepository = $this->getDoctrine()->getRepository('App:Vote');
+
+        $like = $voteRepository->find($id);
+
+        $like->setLikes($like->getLikes()+1);
+
+        $entityManager->persist($like);
+        $entityManager->flush();
 
         return $this->render('vote/show.html.twig', [
             'vote' => $vote,
+            'form' => $form->createView(),
             'ans' => $pollingRepository->findByExampleField($vote),
             'datetime' => $VoteRepository->timer($vote->getId()),
             'comment' => $VoteRepository->showComment($vote->getId()),
+//            'likes' => $VoteRepository->supportCounter($vote->getId()),
+
         ]);
     }
+
 
     /**
      * @Route("/{id}/edit", name="vote_edit", methods={"GET","POST"})
