@@ -28,34 +28,45 @@
                             {% endfor %}
                         </div>
 
-                        <input type="radio"  value="{{ vote.option1 }}"> {{ vote.option1 }}<br>
+                        {{ vote.option1 }} {{ vote.option1 }}<br>
                         <p id="option1"></p>
-                        <input type="radio"  value="{{ vote.option2}}"> {{ vote.option2 }}<br>
+                        {{ vote.option1 }} {{ vote.option1 }}<br>
                         <p id="option2"></p>
 
                         <span id="countdown" class="timer"></span>
                         {% set time = [] %}
                         {% for countdown in datetime %}
-                            {{ countdown.datetime|date('d-m-Y H:i:s') }}
+                           Expires on = {{ countdown.datetime|date("H:i:s \O\n d/m/Y") }}
                             <span id="countdown"></span>                    <span id="countdown" class="timer"></span>
                             <br>
 
+                            {% if "now"|date('H:i:s \O\n d/m/Y') > countdown.datetime|date('H:i:s \O\n d/m/Y') %}
+                                <p>expired</p>
+                            {% endif %}
+
                         {% endfor %}
+
                         {% for comment in comment %}
                             {{ comment.Comment }}
                         {% endfor %}
 
-                        time is    <script>countdown();</script>
+<br>
+                        todays date it {{ "now"|date("H:i:s \O\n d/m/Y") }}
+
 
                     </div>
                 </div>
             <p> current support is: {{ vote.likes }}</p>
+
+{#                <input type="submit" id="like" name="like" value="like">#}
+
                 {#        {{ include('polling/_form.html.twig') }}#}
 
             </div>
         </div>
         {#    <a href method="POST" action="VoteController.php">Vote</a>#}
-
+</div>
+        </div>
         {#<button onclick="castVote()" method="POST">Vote</button>#}
     </form>
 
