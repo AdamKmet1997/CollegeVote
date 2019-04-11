@@ -83,11 +83,9 @@ class Vote
     private $likes;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Support", mappedBy="vote", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Supporting", mappedBy="vote")
      */
-    private $support;
-
-
+    private $supportings;
 
 
 
@@ -99,7 +97,7 @@ class Vote
         $this->CommentID = new ArrayCollection();
         $this->Comment = new ArrayCollection();
         $this->VoteIDCo = new ArrayCollection();
-        $this->voteId = new ArrayCollection();
+        $this->supportings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -323,22 +321,37 @@ class Vote
         return $this;
     }
 
-    public function getSupport(): ?Support
+    /**
+     * @return Collection|Supporting[]
+     */
+    public function getSupportings(): Collection
     {
-        return $this->support;
+        return $this->supportings;
     }
 
-    public function setSupport(Support $support): self
+    public function addSupporting(Supporting $supporting): self
     {
-        $this->support = $support;
-
-        // set the owning side of the relation if necessary
-        if ($this !== $support->getVote()) {
-            $support->setVote($this);
+        if (!$this->supportings->contains($supporting)) {
+            $this->supportings[] = $supporting;
+            $supporting->setVote($this);
         }
 
         return $this;
     }
+
+    public function removeSupporting(Supporting $supporting): self
+    {
+        if ($this->supportings->contains($supporting)) {
+            $this->supportings->removeElement($supporting);
+            // set the owning side to null (unless already changed)
+            if ($supporting->getVote() === $this) {
+                $supporting->setVote(null);
+            }
+        }
+
+        return $this;
+    }
+
 
 
 }

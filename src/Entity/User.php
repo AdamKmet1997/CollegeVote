@@ -71,12 +71,9 @@ class User implements UserInterface
     private $UserIdCo;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Support", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Supporting", mappedBy="user")
      */
-    private $supports;
-
-
-
+    private $supportings;
 
     public function __construct()
     {
@@ -86,7 +83,7 @@ class User implements UserInterface
         $this->commentID = new ArrayCollection();
         $this->UserID = new ArrayCollection();
         $this->UserIdCo = new ArrayCollection();
-        $this->supports = new ArrayCollection();
+        $this->supportings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -253,30 +250,30 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Support[]
+     * @return Collection|Supporting[]
      */
-    public function getSupports(): Collection
+    public function getSupportings(): Collection
     {
-        return $this->supports;
+        return $this->supportings;
     }
 
-    public function addSupport(Support $support): self
+    public function addSupporting(Supporting $supporting): self
     {
-        if (!$this->supports->contains($support)) {
-            $this->supports[] = $support;
-            $support->setUser($this);
+        if (!$this->supportings->contains($supporting)) {
+            $this->supportings[] = $supporting;
+            $supporting->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeSupport(Support $support): self
+    public function removeSupporting(Supporting $supporting): self
     {
-        if ($this->supports->contains($support)) {
-            $this->supports->removeElement($support);
+        if ($this->supportings->contains($supporting)) {
+            $this->supportings->removeElement($supporting);
             // set the owning side to null (unless already changed)
-            if ($support->getUser() === $this) {
-                $support->setUser(null);
+            if ($supporting->getUser() === $this) {
+                $supporting->setUser(null);
             }
         }
 

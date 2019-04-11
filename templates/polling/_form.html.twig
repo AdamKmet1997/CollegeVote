@@ -3,6 +3,7 @@
 
 {% if vote.likes >20 %}
 
+
 <select name="ans">
     <option value="1">{{ vote.option1 }}</option>
     <option value="2">{{ vote.option2 }}</option>
@@ -16,13 +17,14 @@
 <input type="hidden" name="user" value="{{ app.user.id }}">
 <input type="hidden" name="comment[VoteID]" value="{{ vote.id }}">
 
-{% elseif vote.likes < 20 %}
+{% elseif vote.likes < 10 %}
 
 <p> sorry vote have not yet reached more than 20 likes </p>
     <!---
     place a button here adam to vote
     --->
 
+{% endif %}
 {% endif %}
 
 {{ form_end(form) }}

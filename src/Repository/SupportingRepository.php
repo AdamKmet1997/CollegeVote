@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Support;
+use App\Entity\Supporting;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Support|null find($id, $lockMode = null, $lockVersion = null)
- * @method Support|null findOneBy(array $criteria, array $orderBy = null)
- * @method Support[]    findAll()
- * @method Support[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Supporting|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Supporting|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Supporting[]    findAll()
+ * @method Supporting[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class SupportRepository extends ServiceEntityRepository
+class SupportingRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Support::class);
+        parent::__construct($registry, Supporting::class);
     }
 
     // /**
-    //  * @return Support[] Returns an array of Support objects
+    //  * @return Supporting[] Returns an array of Supporting objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class SupportRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Support
+    public function findOneBySomeField($value): ?Supporting
     {
         return $this->createQueryBuilder('s')
             ->andWhere('s.exampleField = :val')

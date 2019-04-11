@@ -57,21 +57,24 @@
                     </div>
                 </div>
             <p> current support is: {{ vote.likes }}</p>
-                {% if support.id is defined %}
-                    {% if support.user.username == app.user.username %}
+
+{#                {% if support.id is defined %}#}
+
+{#                    {% if support.user.username == app.user.username %}#}
+{#                        <p>   Already voted </p>#}
+{#                {% else %}#}
+{#                    <a href="{{ url('like_show', {'id': vote.id}) }}">like</a>#}
+{#                    {% endif %}#}
+
+{#                    {% endif %}#}
+{#                {% if supporting.user.username == app.user.username %}#}
+
+{#                <p>go and vote </p>#}
+{#                    {% else %}#}
+{#                    <a href="{{ url('like_show', {'id': vote.id}) }}">like</a>#}
 
 
-
-
-
-                    {% endif %}
-                {% else %}
-                    <a href="{{ url('like_show', {'id': vote.id}) }}">like</a>
-
-                    {% endif %}
-
-
-
+{#                {% endif %}#}
 
             </div>
         </div>

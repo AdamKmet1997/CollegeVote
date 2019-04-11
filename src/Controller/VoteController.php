@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Polling;
 //use App\Entity\Support;
 //use App\Repository\SupportRepository;
-use App\Entity\Support;
+use App\Entity\Supporting;
 use Doctrine\ORM\Mapping\Id;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Entity\Vote;
@@ -89,7 +89,9 @@ class VoteController extends AbstractController
      */
     public function show(Vote $vote, $id,Request $request,VoteRepository $voteRepository, PollingRepository $pollingRepository, VoteRepository $VoteRepository): Response
     {
-        $support = $vote->getSupport();
+
+        $supporting=$vote->getSupportings();
+
 
         return $this->render('vote/show.html.twig', [
             'vote' => $vote,
@@ -97,8 +99,8 @@ class VoteController extends AbstractController
             'ans' => $pollingRepository->findByExampleField($vote),
             'datetime' => $VoteRepository->timer($vote->getId()),
             'comment' => $VoteRepository->showComment($vote->getId()),
-            'support'=>$support,
-//            'likes' => $VoteRepository->supportCounter($vote->getId()),
+            'supporting'=>$supporting,
+//           'likes' => $VoteRepository->supportCounter($vote->getId()),
 
         ]);
     }
@@ -108,33 +110,26 @@ class VoteController extends AbstractController
     public function likeVote(Request $request, VoteRepository $voteRepository, $id, PollingRepository $pollingRepository,Vote $vote){
 
 
-        $form = $this->createForm(VoteType::class);
+        $supporting = new Supporting();
 
         $user = $this->getUser();
 
         $entityManager = $this->getDoctrine()->getManager();
         $voteRepository = $this->getDoctrine()->getRepository('App:Vote');
 
-        $support = new Support();
-        $support->setVote($vote);
-        $support->setUser($user);
-
-
-
         $like = $voteRepository->find($id);
-
         $like->setLikes($like->getLikes() + 1);
 
+        $supporting->setUser($user);
+        $supporting->setVote($vote);
+
         $entityManager->persist($like);
-        $entityManager->persist($support);
+        $entityManager->persist($supporting);
 
         $entityManager->flush();
-
-
-
         return $this->render('vote/show.html.twig', [
             'vote' => $vote,
-            'support'=>$support,
+            'supporting'=>$supporting,
 //            'form' => $form->createView(),
             'ans' => $pollingRepository->findByExampleField($vote),
             'datetime' => $voteRepository->timer($vote->getId()),

@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\SupportRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\SupportingRepository")
  */
-class Support
+class Supporting
 {
     /**
      * @ORM\Id()
@@ -17,13 +17,13 @@ class Support
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="supports")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="supportings")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Vote", inversedBy="support", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Vote", inversedBy="supportings")
      * @ORM\JoinColumn(nullable=false)
      */
     private $vote;
@@ -50,7 +50,7 @@ class Support
         return $this->vote;
     }
 
-    public function setVote(Vote $vote): self
+    public function setVote(?Vote $vote): self
     {
         $this->vote = $vote;
 
