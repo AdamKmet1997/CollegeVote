@@ -70,6 +70,12 @@ class User implements UserInterface
      */
     private $UserIdCo;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Support", mappedBy="user")
+     */
+    private $supports;
+
+
 
 
     public function __construct()
@@ -80,6 +86,7 @@ class User implements UserInterface
         $this->commentID = new ArrayCollection();
         $this->UserID = new ArrayCollection();
         $this->UserIdCo = new ArrayCollection();
+        $this->supports = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -219,7 +226,7 @@ class User implements UserInterface
      */
     public function getUserIdCo(): Collection
     {
-        return $this->UserIdCo;
+        return $this->UsernameCo;
     }
 
     public function addUserIdCo(Comment $userIdCo): self
@@ -245,9 +252,36 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return Collection|Support[]
+     */
+    public function getSupports(): Collection
+    {
+        return $this->supports;
+    }
 
+    public function addSupport(Support $support): self
+    {
+        if (!$this->supports->contains($support)) {
+            $this->supports[] = $support;
+            $support->setUser($this);
+        }
 
+        return $this;
+    }
 
+    public function removeSupport(Support $support): self
+    {
+        if ($this->supports->contains($support)) {
+            $this->supports->removeElement($support);
+            // set the owning side to null (unless already changed)
+            if ($support->getUser() === $this) {
+                $support->setUser(null);
+            }
+        }
+
+        return $this;
+    }
 
 
 

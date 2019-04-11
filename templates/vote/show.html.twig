@@ -39,7 +39,7 @@
                             <span id="countdown"></span>                    <span id="countdown" class="timer"></span>
                             <br>
 
-                            {% if "now"|date('H:i:s \O\n d/m/Y') < countdown.datetime|date('H:i:s \O\n d/m/Y') %}
+                            {% if "now"|date('H:i:s \O\n d/m/Y') >  countdown.datetime|date('H:i:s \O\n d/m/Y') %}
                                 <p>expired</p>
                             {% endif %}
 
@@ -57,13 +57,18 @@
                     </div>
                 </div>
             <p> current support is: {{ vote.likes }}</p>
+                {% if support.id is defined %}
+                    {% if support.user.username == app.user.username %}
 
 
-                <form action="vote_show">
 
+
+
+                    {% endif %}
+                {% else %}
                     <a href="{{ url('like_show', {'id': vote.id}) }}">like</a>
 
-                </form>
+                    {% endif %}
 
 
 
