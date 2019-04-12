@@ -1,29 +1,36 @@
 {{ form_start(form) }}
 {{ form_widget(form) }}
 
-{% if vote.likes >10 %}
+
+                {% if liked == true %}
+                    {% if vote.likes >10 %}
 
 
-<select name="ans">
-    <option value="1">{{ vote.option1 }}</option>
-    <option value="2">{{ vote.option2 }}</option>
-</select>
+                        <select name="ans">
+                            <option value="1">{{ vote.option1 }}</option>
+                            <option value="2">{{ vote.option2 }}</option>
+                        </select>
 
-<button class="btn">{{ button_label|default('Save') }}</button>
-<hr>
-<hr>
+                        <button class="btn">{{ button_label|default('Save') }}</button>
+                        <hr>
+                        <hr>
 
 
-<input type="hidden" name="user" value="{{ app.user.id }}">
-<input type="hidden" name="comment[VoteID]" value="{{ vote.id }}">
+                        <input type="hidden" name="user" value="{{ app.user.id }}">
+                        <input type="hidden" name="comment[VoteID]" value="{{ vote.id }}">
 
-{% elseif vote.likes < 10 %}
+                    {% elseif vote.likes < 10 %}
 
-<p> sorry vote have not yet reached more than 20 likes </p>
-    <!---
-    place a button here adam to vote
-    --->
+                        <p> sorry vote have not yet reached more than 20 likes </p>
+                        <!---
+                        place a button here adam to vote
+                        --->
 
-{% endif %}
+                    {% endif %}
+
+                {% elseif liked == false %}
+
+                    <p>you have already voted</p>
+                {% endif %}
 
 {{ form_end(form) }}

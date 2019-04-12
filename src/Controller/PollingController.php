@@ -31,32 +31,63 @@ class PollingController extends AbstractController
     /**
      * @Route("/new/{id}", name="polling_new", methods={"GET","POST"})
      */
-    public function new(Request $request ,Vote $vote, VoteRepository $voteRepository): Response
+    public function new(Request $request ,$id,Vote $vote,PollingRepository $pollingRepository, VoteRepository $voteRepository): Response
     {
         $polling = new Polling();
         $form = $this->createForm(PollingType::class, $polling);
         $form->handleRequest($request);
 
+        ################################
+        $pollingRepository = $this->getDoctrine()->getRepository('App:Polling');
+        $counter = $pollingRepository->findBy(array('Voting_id'=>$id));
+        $counter = count($counter);
+        $liked = false;
+
+        $checker = $pollingRepository->findOneBy(array('User_id' => $this->getUser(),'Voting_id' => $id));
+
+        if($checker == null){
+            $liked = true;
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $user = $_POST['user'];
+                $ans = $_POST['ans'];
+                $user = $entityManager->getRepository('App:User')->find($user);
+                $polling->setUserId($user);
+                $vote = $entityManager->getRepository('App:Vote')->find($vote);
+                $polling->setVotingId($vote);
+                $polling->setAns($ans);
+
+                $entityManager->persist($polling);
+                $entityManager->flush();
+                return $this->redirectToRoute('vote_show', [
+                    'id' => $vote->getId()
+                ]);        }
+        }
+        if($liked == false){
 
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $user = $_POST['user'];
-            $ans = $_POST['ans'];
-            $user = $entityManager->getRepository('App:User')->find($user);
-            $polling->setUserId($user);
-            $vote = $entityManager->getRepository('App:Vote')->find($vote);
-            $polling->setVotingId($vote);
-            $polling->setAns($ans);
+        }
+        ##############################
 
-            $entityManager->persist($polling);
-            $entityManager->flush();
-            return $this->redirectToRoute('vote_show', [
-                'id' => $vote->getId()
-            ]);        }
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $entityManager = $this->getDoctrine()->getManager();
+//            $user = $_POST['user'];
+//            $ans = $_POST['ans'];
+//            $user = $entityManager->getRepository('App:User')->find($user);
+//            $polling->setUserId($user);
+//            $vote = $entityManager->getRepository('App:Vote')->find($vote);
+//            $polling->setVotingId($vote);
+//            $polling->setAns($ans);
+//
+//            $entityManager->persist($polling);
+//            $entityManager->flush();
+//            return $this->redirectToRoute('vote_show', [
+//                'id' => $vote->getId()
+//            ]);        }
 
         return $this->render('polling/new.html.twig', [
             'polling' => $polling,
+            'liked'=>$liked,
             'form' => $form->createView(),
             'vote' => $vote,
 //            'likes' => $voteRepository->supportCounter($vote->getId()),
