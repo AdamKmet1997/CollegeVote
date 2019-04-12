@@ -1,7 +1,7 @@
 {{ form_start(form) }}
 {{ form_widget(form) }}
 
-{% if vote.likes >20 %}
+{% if vote.likes >10 %}
 
 
 <select name="ans">
@@ -24,7 +24,6 @@
     place a button here adam to vote
     --->
 
-{% endif %}
 {% endif %}
 
 {{ form_end(form) }}

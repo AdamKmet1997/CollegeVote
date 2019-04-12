@@ -37,6 +37,8 @@ class PollingController extends AbstractController
         $form = $this->createForm(PollingType::class, $polling);
         $form->handleRequest($request);
 
+
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $user = $_POST['user'];

@@ -58,23 +58,42 @@
                 </div>
             <p> current support is: {{ vote.likes }}</p>
 
-{#                {% if support.id is defined %}#}
+                {% if liked == true %}
+                     <a href="{{ path('like_show', {'id': vote.id}) }}">|like|</a>
+                {% elseif liked == false %}
 
-{#                    {% if support.user.username == app.user.username %}#}
-{#                        <p>   Already voted </p>#}
-{#                {% else %}#}
-{#                    <a href="{{ url('like_show', {'id': vote.id}) }}">like</a>#}
-{#                    {% endif %}#}
+                    <p>you have already liked the vote</p>
+{% endif %}
+{#            {% for support in supporting %}#}
+{#                {% if support.user.username == app.user.username %}#}
+{#                    <p> -im in first if -</p>#}
 
-{#                    {% endif %}#}
-{#                {% if supporting.user.username == app.user.username %}#}
-
-{#                <p>go and vote </p>#}
+{#                    {% if support.vote.id == vote.id  %}#}
+{#                            <p>   Already voted </p>#}
+{#                     {% endif %}#}
 {#                    {% else %}#}
-{#                    <a href="{{ url('like_show', {'id': vote.id}) }}">like</a>#}
-
+{#                    <a href="{{ path('like_show', {'id': vote.id}) }}">|like1|</a>#}
 
 {#                {% endif %}#}
+{#                {% else %}#}
+{#                    <a href="{{ path('like_show', {'id': vote.id}) }}">|like2|</a>#}
+
+{#            {% endfor %}#}
+{#                {% for support in supporting %}#}
+{#                    {% if support.user.username == app.user.username and support.vote.id == vote.id%}#}
+{#                        Already liked#}
+{#                {% else %}#}
+{#                    <a href="{{ path('like_show', {'id': vote.id}) }}">|like|</a>#}
+{#                    {% endif %}#}
+{#                {% endfor %}#}
+
+{#                {% if support.user.username == app.user.username and support.vote.id == vote.id  %}#}
+
+{#                <p>theres same username already</p>#}
+{#                {% else %}#}
+{#                    <a href="{{ path('like_show', {'id': vote.id}) }}">|like|</a>#}
+{#                {% endif %}#}
+
 
             </div>
         </div>

@@ -6,6 +6,7 @@ use App\Entity\Polling;
 //use App\Entity\Support;
 //use App\Repository\SupportRepository;
 use App\Entity\Supporting;
+use App\Repository\SupportingRepository;
 use Doctrine\ORM\Mapping\Id;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Entity\Vote;
@@ -87,19 +88,53 @@ class VoteController extends AbstractController
     /**
      * @Route("/{id}", name="vote_show")
      */
-    public function show(Vote $vote, $id,Request $request,VoteRepository $voteRepository, PollingRepository $pollingRepository, VoteRepository $VoteRepository): Response
+    public function show(Vote $vote, $id,Request $request,VoteRepository $voteRepository,SupportingRepository $supportingRepository,PollingRepository $pollingRepository, VoteRepository $VoteRepository): Response
     {
 
-        $supporting=$vote->getSupportings();
+//        $supporting = new Supporting();
+
+
+        ################################
+        $supportingRepository = $this->getDoctrine()->getRepository('App:Supporting');
+        $counter = $supportingRepository->findBy(array('vote'=>$id));
+        $counter = count($counter);
+        $liked = false;
+
+        $checker = $supportingRepository->findOneBy(array('user' => $this->getUser(),'vote' => $id));
+
+        if($checker == null){
+            $liked = true;
+
+        }
+        if($liked == false){
+
+
+        }
+        ##############################
+//
+//        $supportingRepository = $this->getDoctrine()->getRepository('App:Supporting');
+//        $num = $supportingRepository->findBy(array('vote'=>$id));
+//        $num = count($num);
+//        $liked = false;
+//
+//        $uc = $supportingRepository->findOneBy(array('user' => $this->getUser(),'vote' => $id));
+//
+//        if($uc == null){
+//            $liked = true;
+//        }
+
+
+
 
 
         return $this->render('vote/show.html.twig', [
+            'liked' =>$liked,
             'vote' => $vote,
 //            'form' => $form->createView(),
             'ans' => $pollingRepository->findByExampleField($vote),
             'datetime' => $VoteRepository->timer($vote->getId()),
             'comment' => $VoteRepository->showComment($vote->getId()),
-            'supporting'=>$supporting,
+//            'supporting'=>$supporting,
 //           'likes' => $VoteRepository->supportCounter($vote->getId()),
 
         ]);
@@ -117,19 +152,37 @@ class VoteController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $voteRepository = $this->getDoctrine()->getRepository('App:Vote');
 
-        $like = $voteRepository->find($id);
-        $like->setLikes($like->getLikes() + 1);
+
+        ################################
+        $supportingRepository = $this->getDoctrine()->getRepository('App:Supporting');
+        $counter = $supportingRepository->findBy(array('vote'=>$id));
+        $counter = count($counter);
+        $liked = false;
+
+        $checker = $supportingRepository->findOneBy(array('user' => $this->getUser(),'vote' => $id));
+
+        if($checker == null){
+            $liked = true;
+            $like = $voteRepository->find($id);
+            $like->setLikes($like->getLikes() + 1);
+            $entityManager->persist($like);
+        }
+        if($liked == false){
+
+
+        }
+        ##############################
 
         $supporting->setUser($user);
         $supporting->setVote($vote);
 
-        $entityManager->persist($like);
         $entityManager->persist($supporting);
 
         $entityManager->flush();
         return $this->render('vote/show.html.twig', [
+            'liked'=>$liked,
             'vote' => $vote,
-            'supporting'=>$supporting,
+           'supporting'=>$supporting,
 //            'form' => $form->createView(),
             'ans' => $pollingRepository->findByExampleField($vote),
             'datetime' => $voteRepository->timer($vote->getId()),
