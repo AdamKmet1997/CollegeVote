@@ -1,21 +1,39 @@
 .navbar{
-    background-color:darkslategrey;
-
+    background-color: #262862;
+    min-height: 120px;
 }
 nav a{
     color:white;
     font-style: oblique;
     margin:5px;
 }
+li{
+    font-size: x-large;
+    font-style: oblique;
+}
+/* Change the link color on hover */
+li a:hover {
+    color: white;
+    font-size: 110%;
+    transition-duration: 0.5s;
+
+}
+img{
+    border-radius: 15px;
+}
+#logout{
+    padding-right: 90px;
+}
+.log-details{
+    font-size: 20px;
+}
 
 body{
-    background-color:#FFFFFF !important;
+    background-color:#D4F9FF !important;
 }
 h1{
     text-align: center;
-    text-decoration: underline;
     text-transform: uppercase;
-
     color:black;
     font-style: oblique;
 }
@@ -77,6 +95,11 @@ h4{
     text-decoration: none;
     display: inline-block;
     font-size: 15px;
+    /*box-shadow: 5px 5px #293D70;*/
+    box-shadow: 0 12px 20px 0 rgba(0,0,0,0.50), 0 10px 25px 0 rgba(0,0,0,0.50);
+    transition-duration: 0.6s;
+
+
 
 }
 
