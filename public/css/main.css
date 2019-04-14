@@ -26,7 +26,7 @@ h1{
     width: 60%;
     border: 3px solid black;
     padding: 10px;
-    box-shadow: 15px 15px;
+    box-shadow: 15px 15px grey;
     text-align: center;
 }
 #display-already-voted{
@@ -38,7 +38,7 @@ h1{
     width: 60%;
     border: 3px solid black;
     padding: 10px;
-    box-shadow: 15px 15px black;
+    box-shadow: 15px 15px gray;
     text-align: center;
 }
 /*#display-vote-index-question{*/
@@ -106,7 +106,7 @@ h4{
     width: 60%;
     border: 3px solid black;
     padding: 10px;
-    box-shadow: 15px 15px black;
+    box-shadow: 15px 15px grey;
     text-align: center;
 }
 .create-new{
