@@ -1,10 +1,9 @@
+<div id="display-vote-index">
 {{ form_start(form) }}
 {#    {{ form_widget(form) }}#}
 {{ form_row(form.Comment) }}
 
-    <button class="btn">{{ button_label|default('Save') }}</button>
-<hr>
-<hr>
+    <button class="vote-button">{{ button_label|default('Save') }}</button>
 
 <input type="hidden" name="comment[UserID]" value="{{ app.user.id }}">
 <input type="hidden" name="comment[VoteID]" value="{{ vote.id }}">
@@ -13,3 +12,4 @@
 {{ form_row(form.VoteID) }}
 -->
 {{ form_end(form) }}
+</div>

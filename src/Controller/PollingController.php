@@ -67,24 +67,6 @@ class PollingController extends AbstractController
 
 
         }
-        ##############################
-
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $entityManager = $this->getDoctrine()->getManager();
-//            $user = $_POST['user'];
-//            $ans = $_POST['ans'];
-//            $user = $entityManager->getRepository('App:User')->find($user);
-//            $polling->setUserId($user);
-//            $vote = $entityManager->getRepository('App:Vote')->find($vote);
-//            $polling->setVotingId($vote);
-//            $polling->setAns($ans);
-//
-//            $entityManager->persist($polling);
-//            $entityManager->flush();
-//            return $this->redirectToRoute('vote_show', [
-//                'id' => $vote->getId()
-//            ]);        }
-
         return $this->render('polling/new.html.twig', [
             'polling' => $polling,
             'liked'=>$liked,

@@ -4,7 +4,7 @@
 
                 {% if liked == true %}
                     {% if vote.likes >10 %}
-
+            <div id="display-vote-index">
 
                         <select name="ans">
                             <option value="1">{{ vote.option1 }}</option>
@@ -28,9 +28,17 @@
 
                     {% endif %}
 
-                {% elseif liked == false %}
 
-                    <p>you have already voted</p>
+                {% elseif liked == false %}
+                <div id="display-already-voted">
+
+                    <p>YOUR VOTE HAS ALREADY BEEN SAVED</p>
+                    <a href="{{ path('vote_index', {'id': vote.id}) }}" class="vote-button">Back to the List</a>
+
+                </div>
+
                 {% endif %}
 
+
 {{ form_end(form) }}
+            </div>

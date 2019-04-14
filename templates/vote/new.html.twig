@@ -1,13 +1,15 @@
 
-
 {% extends 'base.html.twig' %}
 
 {% block title %}New Vote{% endblock %}
 {% block body %}
+    <div id="display-vote-index">
+
     <h1>Create new Vote</h1>
 
     {{ include('vote/_form.html.twig') }}
 
-    <a href="{{ path('vote_index') }}">back to list</a>
-{% endblock %}
+    <a href="{{ path('vote_index') }}" class="vote-button">back to list</a>
+</div>
 
+{% endblock %}

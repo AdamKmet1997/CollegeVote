@@ -24,17 +24,10 @@
             <ul class="navbar-nav ml-auto">
 
                 </li>
-                <li class="nav-item">
-                    <a href="{{ url('polling_index') }}">Show all Questions</a>
 
-                    </a>
-                </li>
                 {% if app.user %}
                     <li>
-                        <a href="{{ url('vote_index') }}">Current Voting</a>
-                    </li>
-                    <li>
-                        <a href="{{ url('polling_new', {'id':'vote.id'}) }}">Make a Vote</a>
+                        <a href="{{ url('vote_index') }}">Questions</a>
                     </li>
                     <li>
                     <li class="nav-item"><a href="{{ path('app_logout') }}">Logout</a></li>
@@ -49,15 +42,7 @@
                     <li>
                         <a href="{{ url('admin') }}">Admin home</a>
                     </li>
-{#                    <li>#}
-{#                        <a href="{{ url('vote_index') }}">Current Voting</a>#}
-{#                    </li>#}
-{#                    <li>#}
-{#                        <a href="{{ url('polling_new') }}">Make a Vote</a>#}
-{#                    </li>#}
-{#                    <li>#}
-{#                         <li class="nav-item"><a href="{{ path('app_logout') }}">Logout</a></li>#}
-{#                    </li>#}
+
                 {% endif %}
                 {% block javascripts %}{% endblock %}
 
@@ -70,6 +55,10 @@
     {% if app.user %}
         <h1>Welcome {{ app.user.username }}</h1>
     {% endif %}
+    <div id="display-vote-index">
+        {{  }}
+
+    </div>
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

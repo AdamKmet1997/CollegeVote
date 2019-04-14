@@ -9,13 +9,132 @@ nav a{
 }
 
 body{
-    background-color:#FFF8DC !important;
+    background-color:#FFFFFF !important;
 }
 h1{
+    text-align: center;
+    text-decoration: underline;
+    text-transform: uppercase;
+
     color:black;
     font-style: oblique;
 }
+#display-vote-index{
+    background-color:#759EEF;
+    color:black;
+    margin: auto;
+    width: 60%;
+    border: 3px solid black;
+    padding: 10px;
+    box-shadow: 15px 15px;
+    text-align: center;
+}
+#display-already-voted{
+    background-color:#FFFFFF;
+    color:red;
+    font-size: larger;
+    font-style: revert;
+    margin: auto;
+    width: 60%;
+    border: 3px solid black;
+    padding: 10px;
+    box-shadow: 15px 15px black;
+    text-align: center;
+}
+/*#display-vote-index-question{*/
+/*    background-color: #87CEFA;*/
+/*}*/
+/*#display-vote-index-option{*/
+/*    background-color: #DDA0DD;*/
+/*    font-style: normal;*/
 
+/*}*/
+.table{
+    background-color:#FFFFFF;
+
+}
+#expired{
+    color:red;
+    font-size: larger;
+    font-style: revert;
+}
+#vote-question{
+    padding:10px;
+}
+.vote-option{
+    padding: 10px;
+}
+h4{
+    font-style: italic;
+}
+.vote-button{
+    background-color:black;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    padding: 15px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+
+}
+
+#b-group{
+    background-color:black;
+    border-radius: 25px;
+    color: white;
+    padding: 15px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    width: 20%;
+    margin-left:40%;
+    margin-right:40%;
+}
+
+#amount{
+    color: #ffffff;
+}
+#login-form{
+    background-color:#FFFFFF;
+    color:red;
+    font-size: larger;
+    font-style: revert;
+    margin: auto;
+    width: 60%;
+    border: 3px solid black;
+    padding: 10px;
+    box-shadow: 15px 15px black;
+    text-align: center;
+}
+.create-new{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 23px;
+    margin-left: 45%;
+    margin-right: 45%
+}
+#show-datetime{
+    background-color: #87CEFA;
+
+}
+.like-button{
+    color:blue;
+    font-style: oblique;
+    font-size: 20px;
+
+}
+#comments{
+    background-color: #DDA0DD;
+    font-style: normal;
+}
 .log-details{
     text-align: right;
     padding: 0.3rem;

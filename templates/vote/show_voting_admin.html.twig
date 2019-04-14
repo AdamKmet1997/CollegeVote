@@ -5,9 +5,8 @@
 {% block body %}
 
 <h1> hello to admin page</h1>
-
-    {% for user in users %}
-        <table class="table table-striped">
+        {% for user in users %}
+        <table class="table">
             <thead>
             <tr>
                 <th>{{ user.id }}</th>

@@ -39,21 +39,7 @@ class VoteController extends AbstractController
      */
     public function index( VoteRepository $voteRepository): Response
     {
-//        $vote = new Vote();
-//        $form = $this->createForm(VoteType::class, $vote);
-//        $form->handleRequest($request);
-//
-//        $entityManager = $this->getDoctrine()->getManager();
-//        $voteRepository = $this->getDoctrine()->getRepository('App:Vote');
-//            if ($form->get('like')->isClicked()) {
-//
-//        $like = $voteRepository->find($id);
-//
-//        $like->setLikes($like->getLikes() + 1);
-//
-//        $entityManager->persist($like);
-//        $entityManager->flush();
-//            }
+
         return $this->render('vote/index.html.twig', [
             'votes' => $voteRepository->findAll(),
         ]);
@@ -110,23 +96,6 @@ class VoteController extends AbstractController
 
 
         }
-        ##############################
-//
-//        $supportingRepository = $this->getDoctrine()->getRepository('App:Supporting');
-//        $num = $supportingRepository->findBy(array('vote'=>$id));
-//        $num = count($num);
-//        $liked = false;
-//
-//        $uc = $supportingRepository->findOneBy(array('user' => $this->getUser(),'vote' => $id));
-//
-//        if($uc == null){
-//            $liked = true;
-//        }
-
-
-
-
-
         return $this->render('vote/show.html.twig', [
             'liked' =>$liked,
             'vote' => $vote,

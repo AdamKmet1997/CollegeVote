@@ -6,6 +6,7 @@
 
 
 {% block body %}
+    <div id="login-form">
     <form method="post">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
@@ -31,4 +32,5 @@
             <button type="submit">Login</button>
 
     </form>
+    </div>
 {% endblock %}
