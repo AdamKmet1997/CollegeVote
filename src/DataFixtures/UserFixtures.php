@@ -29,9 +29,12 @@ class UserFixtures extends Fixture
         $userPeter = $this->createUser('peter', 'peter',['ROLE_USER']);
         $userLucia = $this->createUser('lucia', 'lucia',['ROLE_USER']);
         $userDaniel = $this->createUser('daniel', 'daniel',['ROLE_USER']);
+        $userAka = $this->createUser('aka', 'aka',['ROLE_USER']);
         $userDylan = $this->createUser('dylan', 'dylan',['ROLE_USER']);
+        $userHelp1 = $this->createUser('help', 'help',['ROLE_USER']);
+        $userHelp2 = $this->createUser('help2', 'help2',['ROLE_USER']);
         $userKhaw = $this->createUser('khaw', 'khaw',['ROLE_USER']);
-        $userMatt = $this->createUser('matt', 'matt',['ROLE_USER']);
+        $userMatt = $this->createUser('matt', 'matt',['ROLE_ADMIN']);
         $userAdmin = $this->createUser('admin', 'admin', ['ROLE_ADMIN']);
         $userAdam = $this->createUser('adam', 'kmet', ['ROLE_SUPER_ADMIN']);
 // store to DB
@@ -41,7 +44,10 @@ class UserFixtures extends Fixture
         $manager->persist($userHolly);
         $manager->persist($userPeter);
         $manager->persist($userDaniel);
+        $manager->persist($userAka);
         $manager->persist($userDylan);
+        $manager->persist($userHelp1);
+        $manager->persist($userHelp2);
         $manager->persist($userKhaw);
         $manager->persist($userLucia);
         $manager->persist($userMatt);
