@@ -27,6 +27,7 @@ class UserFixtures extends Fixture
         $userUser = $this->createUser('user', 'user',['ROLE_USER']);
         $userHolly = $this->createUser('holly', 'holly',['ROLE_USER']);
         $userPeter = $this->createUser('peter', 'peter',['ROLE_USER']);
+        $userLucia = $this->createUser('lucia', 'lucia',['ROLE_USER']);
         $userDaniel = $this->createUser('daniel', 'daniel',['ROLE_USER']);
         $userDylan = $this->createUser('dylan', 'dylan',['ROLE_USER']);
         $userKhaw = $this->createUser('khaw', 'khaw',['ROLE_USER']);
@@ -42,6 +43,7 @@ class UserFixtures extends Fixture
         $manager->persist($userDaniel);
         $manager->persist($userDylan);
         $manager->persist($userKhaw);
+        $manager->persist($userLucia);
         $manager->persist($userMatt);
         $manager->flush();
 
