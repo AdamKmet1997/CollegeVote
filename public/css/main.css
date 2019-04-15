@@ -132,7 +132,7 @@
     }
 
     .b:hover {
-        font-size: 150%;
+        font-size: 110%;
 
     }
 
@@ -192,8 +192,6 @@
         font-style: oblique;
         font-size: 20px;
     }
-
-
 
     #comments {
         font-style: normal;
