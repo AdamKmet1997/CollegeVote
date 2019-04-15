@@ -130,12 +130,6 @@
         box-shadow: 0 12px 20px 0 rgba(0, 0, 0, 0.50), 0 10px 25px 0 rgba(0, 0, 0, 0.50);
         transition-duration: 0.6s;
     }
-
-    .b:hover {
-        font-size: 110%;
-
-    }
-
     #b-group {
         background-color: black;
         border-radius: 25px;
