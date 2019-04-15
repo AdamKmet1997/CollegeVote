@@ -36,6 +36,8 @@ h1{
     text-transform: uppercase;
     color:black;
     font-style: oblique;
+    text-shadow: 4px 4px 4px gray;
+
 }
 #display-vote-index{
     background-color:#759EEF;
@@ -45,19 +47,29 @@ h1{
     border: 3px solid black;
     padding: 10px;
     box-shadow: 15px 15px grey;
+    /*box-shadow: 0 12px 25px 0 rgba(0,0,0,0.80), 0 10px 35px 0 rgba(0,0,0,0.80);*/
+
     text-align: center;
+    border-radius: 15px;
+
+}
+#title:hover{
+    color: white;
+    font-size: 150%;
+    transition-duration: 0.5s;
 }
 #display-already-voted{
-    background-color:#FFFFFF;
-    color:red;
-    font-size: larger;
-    font-style: revert;
+    background-color:#759EEF;
+    color:black;
     margin: auto;
     width: 60%;
     border: 3px solid black;
     padding: 10px;
-    box-shadow: 15px 15px gray;
+    box-shadow: 15px 15px grey;
+    /*box-shadow: 0 12px 25px 0 rgba(0,0,0,0.80), 0 10px 35px 0 rgba(0,0,0,0.80);*/
+
     text-align: center;
+    border-radius: 15px;
 }
 /*#display-vote-index-question{*/
 /*    background-color: #87CEFA;*/
@@ -98,8 +110,9 @@ h4{
     /*box-shadow: 5px 5px #293D70;*/
     box-shadow: 0 12px 20px 0 rgba(0,0,0,0.50), 0 10px 25px 0 rgba(0,0,0,0.50);
     transition-duration: 0.6s;
-
-
+}
+.b:hover{
+    font-size: 150%;
 
 }
 
@@ -146,17 +159,28 @@ h4{
 }
 #show-datetime{
     background-color: #87CEFA;
-
+    border-radius: 15px;
+    border: 3px solid black;
+    box-shadow: 0 12px 20px 0 rgba(0,0,0,0.50), 0 10px 25px 0 rgba(0,0,0,0.50);
 }
+
 .like-button{
     color:blue;
     font-style: oblique;
     font-size: 20px;
-
+}
+.like-button:hover{
+    font-size: 150%;
 }
 #comments{
-    background-color: #DDA0DD;
     font-style: normal;
+    border: 3px solid black;
+    border-radius: 15px;
+    box-shadow: 0 12px 20px 0 rgba(0,0,0,0.50), 0 10px 25px 0 rgba(0,0,0,0.50);
+}
+#comments:hover{
+    font-size: 200%;
+    transition-duration: 0.5s;
 }
 .log-details{
     text-align: right;

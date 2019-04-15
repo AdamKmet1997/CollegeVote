@@ -54,7 +54,7 @@
                            Expires on = {{ countdown.datetime|date("H:i:s \O\n d/m/Y") }}
                             <span id="countdown"></span>                    <span id="countdown" class="timer"></span>
                             <br>
-                            {% if "now"|date('H:i:s \O\n d/m/Y') >  countdown.datetime|date('H:i:s \O\n d/m/Y') %}
+                            {% if "now"|date('H:i:s \O\n d/m/Y') <  countdown.datetime|date('H:i:s \O\n d/m/Y') %}
                                 <p id="expired">EXPIRED</p>
                             {% endif %}
                         {% endfor %}
@@ -65,7 +65,7 @@
                     <div id="comments">
                         <h3>Comments</h3>
                         {% for comment in comment %}
-                            {{ comment.Comment }}
+                        <p>{{ comment.Comment }}</p>
                         {% endfor %}
                     </div>
                 </div>
@@ -87,7 +87,9 @@
     <br>
     <div id="b-group">
     <a href="{{ path('vote_index') }}" class="b">LIST</a>
+        {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('vote_edit', {'id': vote.id}) }}"class="b">EDIT</a>
+        {% endif %}
     <a href="{{ path('comment_new', {'id': vote.id}) }}"class="b">COMMENT</a>
     <a href="{{ path('polling_new', {'id': vote.id}) }}"class="b">POLLING</a>
     </div>
