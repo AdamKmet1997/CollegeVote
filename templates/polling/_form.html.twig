@@ -3,7 +3,7 @@
 
 
                 {% if liked == true %}
-                    {% if vote.likes >10 %}
+                    {% if vote.likes >2 %}
             <div id="display-vote-index">
 
                         <select name="ans">
@@ -19,7 +19,7 @@
                         <input type="hidden" name="user" value="{{ app.user.id }}">
                         <input type="hidden" name="comment[VoteID]" value="{{ vote.id }}">
 
-                    {% elseif vote.likes < 10 %}
+                    {% elseif vote.likes < 2 %}
 
                         <p> sorry vote have not yet reached more than 20 likes </p>
                         <!---

@@ -25,12 +25,24 @@ class UserFixtures extends Fixture
     {
         // create objects
         $userUser = $this->createUser('user', 'user',['ROLE_USER']);
+        $userHolly = $this->createUser('holly', 'holly',['ROLE_USER']);
+        $userPeter = $this->createUser('peter', 'peter',['ROLE_USER']);
+        $userDaniel = $this->createUser('daniel', 'daniel',['ROLE_USER']);
+        $userDylan = $this->createUser('dylan', 'dylan',['ROLE_USER']);
+        $userKhaw = $this->createUser('khaw', 'khaw',['ROLE_USER']);
+        $userMatt = $this->createUser('matt', 'matt',['ROLE_USER']);
         $userAdmin = $this->createUser('admin', 'admin', ['ROLE_ADMIN']);
         $userAdam = $this->createUser('adam', 'kmet', ['ROLE_SUPER_ADMIN']);
 // store to DB
         $manager->persist($userUser);
         $manager->persist($userAdmin);
         $manager->persist($userAdam);
+        $manager->persist($userHolly);
+        $manager->persist($userPeter);
+        $manager->persist($userDaniel);
+        $manager->persist($userDylan);
+        $manager->persist($userKhaw);
+        $manager->persist($userMatt);
         $manager->flush();
 
     }
