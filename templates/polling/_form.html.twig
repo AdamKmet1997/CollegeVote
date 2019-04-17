@@ -20,12 +20,9 @@
                         <input type="hidden" name="comment[VoteID]" value="{{ vote.id }}">
 
                     {% elseif vote.likes < 2 %}
-
+                        <div id="display-already-voted">
                         <p> sorry vote have not yet reached more than 2 likes </p>
-                        <!---
-                        place a button here adam to vote
-                        --->
-
+                        </div>
                     {% endif %}
 
 
