@@ -49,18 +49,16 @@
                         </h4>
                 <h4 id="show-datetime">
                     <span id="countdown" class="timer"></span>
-                        {% set time = [] %}
                         {% for countdown in datetime %}
-                           Expires on = {{ countdown.datetime|date("H:i:s \O\n d/m/Y") }}
+                           Expires on = {{ countdown.datetime|date("Y/m/d ") }}
                             <span id="countdown"></span>                    <span id="countdown" class="timer"></span>
                             <br>
-                            {% if "now"|date('H:i:s \O\n d/m/Y') <  countdown.datetime|date('H:i:s \O\n d/m/Y') %}
+                            {% if countdown.datetime|date('Y/m/d') < "now"|date('Y/m/d') %}
                                 <p id="expired">EXPIRED</p>
                             {% endif %}
-                        {% endfor %}
 
                         <br>
-                        todays date it {{ "now"|date("H:i:s \O\n d/m/Y") }}
+                        todays date it {{ "now"|date(" Y/m/d") }}
                     </h4>
                     <div id="comments">
                         <h3>Comments</h3>
@@ -71,14 +69,21 @@
                 </div>
     </form>
     <br>
-    <div id="b-group">
-    <a href="{{ path('vote_index') }}" class="b">LIST</a>
-        {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('vote_edit', {'id': vote.id}) }}"class="b">EDIT</a>
+    {% if countdown.datetime|date('Y/m/d ') > "now"|date('Y/m/d') %}
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div id="b-group">            <a href="{{ path('vote_index') }}" class="b">LIST</a>
+
+
+                    <a href="{{ path('vote_edit', {'id': vote.id}) }}"class="b">EDIT</a>
+                {% endif %}
+                <a href="{{ path('comment_new', {'id': vote.id}) }}"class="b">COMMENT</a>
+                <a href="{{ path('polling_new', {'id': vote.id}) }}"class="b">POLLING</a>
+            </div>
         {% endif %}
-    <a href="{{ path('comment_new', {'id': vote.id}) }}"class="b">COMMENT</a>
-    <a href="{{ path('polling_new', {'id': vote.id}) }}"class="b">POLLING</a>
-    </div>
+
+    {% endfor %}
+
 
 
 
