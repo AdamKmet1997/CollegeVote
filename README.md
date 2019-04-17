@@ -19,12 +19,12 @@ Each Poll has to have certain amount of "LIKES" in order to be allowed to Vote o
 
 After each Vote is expired, user ca nno longer vote or comment on the vote.
 
-##Log In Details
+## Log In Details
 (There are few accounts associated with log in. Youre able to see the names 
 and log in details in Fixtures. The main ones that show different functionality are as follows).
-####user
+#### user
 -user/user
-####admin
+#### admin
 -admin/admin
 
 ## Instalation
